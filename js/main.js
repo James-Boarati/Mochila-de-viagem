@@ -3,7 +3,13 @@ const form = document.getElementById("novoItem")
 form.addEventListener("submit", (evento) => { // Submit está pedindo todos os dados, esses dados estou chamando de evento.
     evento.preventDefault() // previnindo o comportamento padrão desse evento.
 
-    criaElemento(evento.target.elements['nome'].value, evento.target.elements['quantidade'].value)
+    const nome = evento.target.elements['nome']
+    const quantidade = evento.target.elements['quantidade']
+
+    criaElemento(nome.value, quantidade.value)
+
+    nome.value = ""
+    quantidade.value = ""
 })
 
 function criaElemento(nome, quantidade) {
@@ -19,4 +25,12 @@ function criaElemento(nome, quantidade) {
     const lista = document.getElementById("lista")
 
     lista.appendChild(novoItem)
+
+    const itemAtual = {
+        "nome": nome,
+        "quantidade": quantidade
+    }
+
+    localStorage.setItem("item", JSON.stringify(itemAtual))
+
 }
